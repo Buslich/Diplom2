@@ -32,204 +32,673 @@ public class PurchaseTest {
         SQLHelper.clearPaymentTable();
         SQLHelper.clearCreditTable();
     }
+
     @Test
-    void shouldPurchaseSuccessfullyWithValidCard() {
-        var validCardInfo = DataHelper.getValidCardInfo();
-        var paymentPage = new PaymentPage();
-        paymentPage.enterCardData(validCardInfo);
-        paymentPage.submit();
-        paymentPage.waitForSuccessMessage("Успешная покупка");
-    }
-    @Test
-    void shouldFailPurchaseWithDeclinedCard() {
-        var declinedCardInfo = DataHelper.getDeclinedCardInfo();
-        var paymentPage = new PaymentPage();
-        paymentPage.enterCardData(declinedCardInfo);
-        paymentPage.submit();
-        paymentPage.waitForErrorMessage("Операция отклонена");
-    }
-    @Test
-    void shouldFailWithExpiredCard() {
-        var expiredCardInfo = DataHelper.getExpiredCardInfo();
-        var paymentPage = new PaymentPage();
-        paymentPage.enterCardData(expiredCardInfo);
-        paymentPage.submit();
-        paymentPage.waitForErrorMessage("Истек срок действия карты");
-    }
-    @Test
-    void shouldFailWhenAllFieldsAreEmpty() {
-        var paymentPage = new PaymentPage();
-        paymentPage.enterCardData(new CardInfo("", "", "", "", ""));
-        paymentPage.submit();
-        paymentPage.waitForErrorMessage("Поле обязательно для заполнения");
-    }
-    @Test
-    void shouldFailWithInvalidMonthFormat() {
-        var cardInfo = DataHelper.getCardInfoWithInvalidMonth();
-        var paymentPage = new PaymentPage();
-        paymentPage.enterCardData(cardInfo);
-        paymentPage.submit();
-        paymentPage.waitForErrorMessage("Неверный формат месяца");
-    }
-    @Test
-    void shouldFailWithInvalidYearFormat() {
-        var cardInfo = DataHelper.getCardInfoWithInvalidYear();
-        var paymentPage = new PaymentPage();
-        paymentPage.enterCardData(cardInfo);
-        paymentPage.submit();
-        paymentPage.waitForErrorMessage("Неверный формат года");
-    }
-    @Test
-    void shouldFailWithNumericCardHolderName() {
-        var cardInfo = DataHelper.getNumericCardHolderInfo();
-        var paymentPage = new PaymentPage();
-        paymentPage.enterCardData(cardInfo);
-        paymentPage.submit();
-        paymentPage.waitForErrorMessage("Неверный формат имени владельца");
-    }
-    @Test
-    void shouldFailWithInvalidCVC() {
-        var cardInfo = DataHelper.getCardInfoWithInvalidCVC();
-        var paymentPage = new PaymentPage();
-        paymentPage.enterCardData(cardInfo);
-        paymentPage.submit();
-        paymentPage.waitForErrorMessage("Неверный формат CVC");
-    }
-    @Test
-    void shouldFailWithInvalidCardNumber() {
-        var cardInfo = DataHelper.getInvalidCardNumberInfo();
-        var paymentPage = new PaymentPage();
-        paymentPage.enterCardData(cardInfo);
-        paymentPage.submit();
-        paymentPage.waitForErrorMessage("Неверный формат номера карты");
-    }
-    @Test
-    void shouldFailWithEmptyCardNumber() {
-        var cardInfo = DataHelper.getCardInfoWithEmptyCardNumber();
-        var paymentPage = new PaymentPage();
-        paymentPage.enterCardData(cardInfo);
-        paymentPage.submit();
-        paymentPage.waitForErrorMessage("Поле обязательно для заполнения");
-    }
-    @Test
-    void shouldFailWithInvalidMonthAboveLimit() {
-        var cardInfo = DataHelper.getCardInfoWithMonthAboveLimit();
-        var paymentPage = new PaymentPage();
-        paymentPage.enterCardData(cardInfo);
-        paymentPage.submit();
-        paymentPage.waitForErrorMessage("Неверный месяц");
-    }
-    @Test
-    void shouldFailWithIncorrectCardNumberLength() {
-        var cardInfo = DataHelper.getIncorrectCardNumberLength();
-        var paymentPage = new PaymentPage();
-        paymentPage.enterCardData(cardInfo);
-        paymentPage.submit();
-        paymentPage.waitForErrorMessage("Неверный формат номера карты");
-    }
-    @Test
-    void shouldFailWithExpiredYear() {
-        var cardInfo = DataHelper.getCardInfoWithExpiredYear();
-        var paymentPage = new PaymentPage();
-        paymentPage.enterCardData(cardInfo);
-        paymentPage.submit();
-        paymentPage.waitForErrorMessage("Истёк срок действия карты");
-    }
-    @Test
-    void shouldFailWithMonthZero() {
-        var cardInfo = DataHelper.getCardInfoWithMonthZero();
-        var paymentPage = new PaymentPage();
-        paymentPage.enterCardData(cardInfo);
-        paymentPage.submit();
-        paymentPage.waitForErrorMessage("Неверный месяц");
-    }
-    @Test
-    void shouldFailWithEmptyCVC() {
-        var cardInfo = DataHelper.getCardInfoWithEmptyCVC();
-        var paymentPage = new PaymentPage();
-        paymentPage.enterCardData(cardInfo);
-        paymentPage.submit();
-        paymentPage.waitForErrorMessage("Поле обязательно для заполнения");
-    }
-    @Test
-    void shouldFailWithEmptyMonth() {
-        var cardInfo = DataHelper.getCardInfoWithEmptyMonth();
-        var paymentPage = new PaymentPage();
-        paymentPage.enterCardData(cardInfo);
-        paymentPage.submit();
-        paymentPage.waitForErrorMessage("Поле обязательно для заполнения");
-    }
-    @Test
-    void shouldFailWithYearZero() {
-        var cardInfo = DataHelper.getCardInfoWithYearZero();
-        var paymentPage = new PaymentPage();
-        paymentPage.enterCardData(cardInfo);
-        paymentPage.submit();
-        paymentPage.waitForErrorMessage("Неверный год");
-    }
-    @Test
-    void shouldFailWithEmptyYear() {
-        var cardInfo = DataHelper.getCardInfoWithEmptyYear();
-        var paymentPage = new PaymentPage();
-        paymentPage.enterCardData(cardInfo);
-        paymentPage.submit();
-        paymentPage.waitForErrorMessage("Поле обязательно для заполнения");
-    }
-    @Test
-    void shouldFailWithCVCZero() {
-        var cardInfo = DataHelper.getCardInfoWithCVCZero();
-        var paymentPage = new PaymentPage();
-        paymentPage.enterCardData(cardInfo);
-        paymentPage.submit();
-        paymentPage.waitForErrorMessage("Неверный код CVC");
-    }
-    @Test
-    void shouldFailWithIncorrectCardNumberFormat() {
-        var cardInfo = DataHelper.getCardInfoWithIncorrectCardNumberFormat();
-        var paymentPage = new PaymentPage();
-        paymentPage.enterCardData(cardInfo);
-        paymentPage.submit();
-        paymentPage.waitForErrorMessage("Неверный формат номера карты");
-    }
-    @Test
-    void shouldFailWithEmptyCardNumber() {
-        var cardInfo = DataHelper.getCardInfoWithEmptyCardNumber();
-        var paymentPage = new PaymentPage();
-        paymentPage.enterCardData(cardInfo);
-        paymentPage.submit();
-        paymentPage.waitForErrorMessage("Поле обязательно для заполнения");
-    }
-    @Test
-    void shouldFailWithEmptyCardholder() {
-        var cardInfo = DataHelper.getCardInfoWithEmptyCardholder();
-        var paymentPage = new PaymentPage();
-        paymentPage.enterCardData(cardInfo);
-        paymentPage.submit();
-        paymentPage.waitForErrorMessage("Поле обязательно для заполнения");
-    }
-    @Test
-    void shouldFailWithShortCardholderName() {
-        var cardInfo = DataHelper.getCardInfoWithShortCardholderName();
-        var paymentPage = new PaymentPage();
-        paymentPage.enterCardData(cardInfo);
-        paymentPage.submit();
-        paymentPage.waitForErrorMessage("Недостаточная длина имени");
-    }
-    @Test
-    void shouldFailWithMonthZero() {
-        var cardInfo = DataHelper.getCardInfoWithMonthZero();
-        var paymentPage = new PaymentPage();
-        paymentPage.enterCardData(cardInfo);
-        paymentPage.submit();
-        paymentPage.waitForErrorMessage("Неверный месяц");
-    }
-    @Test
-    void shouldFailWithYearZero() {
-        var cardInfo = DataHelper.getCardInfoWithYearZero();
-        var paymentPage = new PaymentPage();
-        paymentPage.enterCardData(cardInfo);
-        paymentPage.submit();
-        paymentPage.waitForErrorMessage("Неверный год");
+    @DisplayName("Should approved card payment by credit")
+    void shouldCreditPaymentApproved() {
+        var cardinfo = new DataHelper.CardInfo(getApprovedCardNumber(), getValidMonth(), getValidYear(), getValidHolder(), getValidCVCCVV());
+        var purchasepage = new PurchasePage();
+        purchasepage.buyByCreditCard();
+        var form = new CreditPage();
+        form.completedForm(cardinfo);
+        form.paymentApproved();
+        assertEquals("APPROVED", SQLHelper.getCreditRequestStatus());
     }
 
+    @Test
+    @DisplayName("Should approved card payment")
+    void shouldCardPaymentApproved() {
+        var cardinfo = new DataHelper.CardInfo(getApprovedCardNumber(), getValidMonth(), getValidYear(), getValidHolder(), getValidCVCCVV());
+        var purchasepage = new PurchasePage();
+        purchasepage.buyByCard();
+        var form = new PaymentPage();
+        form.completedForm(cardinfo);
+        form.paymentApproved();
+        assertEquals("APPROVED", SQLHelper.getPaymentStatus());
+    }
+
+    @Test
+    @DisplayName("Should declined payment by credit")
+    void shouldCreditPaymentDeclined() {
+        var cardinfo = new DataHelper.CardInfo(getDeclinedCardNumber(), getValidMonth(), getValidYear(), getValidHolder(), getValidCVCCVV());
+        var purchasepage = new PurchasePage();
+        purchasepage.buyByCreditCard();
+        var form = new CreditPage();
+        form.completedForm(cardinfo);
+        form.paymentDeclined();
+        assertEquals("DECLINED", SQLHelper.getCreditRequestStatus());
+    }
+
+    @Test
+    @DisplayName("Should declined payment")
+    void shouldCardPaymentDeclined() {
+        var cardinfo = new DataHelper.CardInfo(getDeclinedCardNumber(), getValidMonth(), getValidYear(), getValidHolder(), getValidCVCCVV());
+        var purchasepage = new PurchasePage();
+        purchasepage.buyByCard();
+        var form = new PaymentPage();
+        form.completedForm(cardinfo);
+        form.paymentDeclined();
+        assertEquals("DECLINED", SQLHelper.getPaymentStatus());
+    }
+
+    //Негативные сценарии формы "Оплата по карте"
+
+    //Заполнение поля «Номер карты» номером, состоящим из 1 цифры
+    @Test
+    public void shouldCardNumberOfOneDigit() {
+        var purchasepage = new PurchasePage();
+        purchasepage.buyByCard();
+        var form = new PaymentPage();
+        form.completedForm(DataHelper.getCardNumberOfOneDigit());
+        form.incorrectCardNumberVisible();
+    }
+
+    //заполнение поля "номер карты" 2мя цифрами
+    @Test
+    public void shouldCardNumberOfTwoDigits() {
+        var purchasepage = new PurchasePage();
+        purchasepage.buyByCard();
+        var form = new PaymentPage();
+        form.completedForm(DataHelper.getCardNumberOfTwoDigits());
+        form.incorrectCardNumberVisible();
+    }
+
+    //заполнение поля "номер карты" 15ю цифрами
+    @Test
+    public void shouldCardNumberOfFifteenDigits() {
+        var purchasepage = new PurchasePage();
+        purchasepage.buyByCard();
+        var form = new PaymentPage();
+        form.completedForm(DataHelper.getCardNumberOfFifteenDigits());
+        form.incorrectCardNumberVisible();
+    }
+
+    //заполнение поля "номер карты" 17ю цифрами
+    @Test
+    public void shouldCardNumberOfSeventeenDigits() {
+        var purchasepage = new PurchasePage();
+        purchasepage.buyByCard();
+        var form = new PaymentPage();
+        form.completedForm(DataHelper.getCardNumberOfSeventeenDigits());
+        form.paymentDeclined();
+    }
+
+    //заполнение поля "номер карты" спец. символами
+    @Test
+    public void shouldCardWithSpecialSymbols() {
+        var purchasepage = new PurchasePage();
+        purchasepage.buyByCard();
+        var form = new PaymentPage();
+        form.completedForm(DataHelper.getCardNumberWithSpecialSymbols());
+        form.incorrectCardNumberVisible();
+    }
+
+    //заполнение поля "номер карты" символами кириллицы
+    @Test
+    public void shouldCardWithCyrillic() {
+        var purchasepage = new PurchasePage();
+        purchasepage.buyByCard();
+        var form = new PaymentPage();
+        form.completedForm(DataHelper.getCardNumberWithCyrillic());
+        form.incorrectCardNumberVisible();
+    }
+
+    //заполнение поля "номер карты" латиницей
+    @Test
+    public void shouldCardWithLatin() {
+        var purchasepage = new PurchasePage();
+        purchasepage.buyByCard();
+        var form = new PaymentPage();
+        form.completedForm(DataHelper.getCardNumberWithLatin());
+        form.incorrectCardNumberVisible();
+    }
+
+    //не заполнение номера карты
+    @Test
+    public void shouldCardIfEmpty() {
+        var purchasepage = new PurchasePage();
+        purchasepage.buyByCard();
+        var form = new PaymentPage();
+        form.completedForm(DataHelper.getCardNumberIfEmpty());
+        form.incorrectCardNumberVisible();
+    }
+
+    @Test
+    public void shouldMonthIfNotExist() {
+        var purchasepage = new PurchasePage();
+        purchasepage.buyByCard();
+        var form = new PaymentPage();
+        form.completedForm(DataHelper.getMonthIfNotExist());
+        form.incorrectMonthVisible("Неверно указан срок действия карты");
+    }
+
+    //несуществующий месяц в пределах граничных значений
+    @Test
+    public void shouldMonthIfNotExistBoundary() {
+        var purchasepage = new PurchasePage();
+        purchasepage.buyByCard();
+        var form = new PaymentPage();
+        form.completedForm(DataHelper.getMonthIfNotExistBoundary());
+        form.incorrectMonthVisible("Неверно указан срок действия карты");
+    }
+
+    //месяц равный двум нулям
+    @Test
+    public void shouldMonthDoubleZero() {
+        var purchasepage = new PurchasePage();
+        purchasepage.buyByCard();
+        var form = new PaymentPage();
+        form.completedForm(DataHelper.getMonthDoubleZero());
+        form.incorrectMonthVisible("Неверный формат");
+    }
+
+    //месяц из 3 цифр
+    @Test
+    public void shouldMonthOfThreeDigits() {
+        var purchasepage = new PurchasePage();
+        purchasepage.buyByCard();
+        var form = new PaymentPage();
+        form.completedForm(DataHelper.getMonthOfThreeDigits());
+        form.incorrectMonthVisible("Неверный формат");
+    }
+
+    //месяц из 1 цифры
+    @Test
+    public void shouldMonthOfOneDigit() {
+        var purchasepage = new PurchasePage();
+        purchasepage.buyByCard();
+        var form = new PaymentPage();
+        form.completedForm(DataHelper.getMonthOfOneDigit());
+        form.incorrectMonthVisible("Неверный формат");
+    }
+
+    //месяц, с использованием специальных символов
+    @Test
+    public void shouldMonthWithSpecialSymbols() {
+        var purchasepage = new PurchasePage();
+        purchasepage.buyByCard();
+        var form = new PaymentPage();
+        form.completedForm(DataHelper.getMonthWithSpecialSymbols());
+        form.incorrectMonthVisible("Неверный формат");
+    }
+
+    //указание прошедшего года
+    @Test
+    public void shouldLastYear() {
+        var purchasepage = new PurchasePage();
+        purchasepage.buyByCard();
+        var form = new PaymentPage();
+        form.completedForm(DataHelper.getLastYear());
+        form.incorrectYearVisible("Истёк срок действия карты");
+    }
+
+    //указание года на 25 лет превышающий текущий
+    @Test
+    public void shouldYear25YearsMore() {
+        var purchasepage = new PurchasePage();
+        purchasepage.buyByCard();
+        var form = new PaymentPage();
+        form.completedForm(DataHelper.getYear25YearsMore());
+        form.incorrectYearVisible("Неверно указан срок действия карты");
+    }
+
+    //год из 1 цифры
+    @Test
+    public void shouldYearOfOneDigit() {
+        var purchasepage = new PurchasePage();
+        purchasepage.buyByCard();
+        var form = new PaymentPage();
+        form.completedForm(DataHelper.getYearOfOneDigit());
+        form.incorrectYearVisible("Неверный формат");
+    }
+
+    //год из 3 цифр
+    @Test
+    public void shouldYearOfThreeDigits() {
+        var purchasepage = new PurchasePage();
+        purchasepage.buyByCard();
+        var form = new PaymentPage();
+        form.completedForm(DataHelper.getYearOfThreeDigits());
+        form.incorrectYearVisible("Неверный формат");
+    }
+
+    //год со значением равным нулю
+    @Test
+    public void shouldYearIfZero() {
+        var purchasepage = new PurchasePage();
+        purchasepage.buyByCard();
+        var form = new PaymentPage();
+        form.completedForm(DataHelper.getYearIfZero());
+        form.incorrectYearVisible("Неверный формат");
+    }
+
+    //год с использованием специальных символов
+    @Test
+    public void shouldYearWithSpecialSymbols() {
+        var purchasepage = new PurchasePage();
+        purchasepage.buyByCard();
+        var form = new PaymentPage();
+        form.completedForm(DataHelper.getYearWithSpecialSymbols());
+        form.incorrectYearVisible("Неверный формат");
+    }
+
+    //поле "Владелец", состоящее из 1 буквы
+    @Test
+    public void shouldHolderOfOneLetter() {
+        var purchasepage = new PurchasePage();
+        purchasepage.buyByCard();
+        var form = new PaymentPage();
+        form.completedForm(DataHelper.getHolderOfOneLetter());
+        form.incorrectHolderVisible();
+    }
+
+    //поле "Владелец", состоящее из 60 букв
+    @Test
+    public void shouldHolderOfSixtyLetters() {
+        var purchasepage = new PurchasePage();
+        purchasepage.buyByCard();
+        var form = new PaymentPage();
+        form.completedForm(DataHelper.getHolderOfSixtyLetters());
+        form.incorrectHolderVisible();
+    }
+
+    //поле "Владелец" кириллицей
+    @Test
+    public void shouldHolderWithCyrillic() {
+        var purchasepage = new PurchasePage();
+        purchasepage.buyByCard();
+        var form = new PaymentPage();
+        form.completedForm(DataHelper.getHolderWithCyrillic());
+        form.incorrectHolderVisible();
+    }
+
+    //поле "Владелец" цифрами
+    @Test
+    public void shouldHolderWithDigits() {
+        var purchasepage = new PurchasePage();
+        purchasepage.buyByCard();
+        var form = new PaymentPage();
+        form.completedForm(DataHelper.getHolderWithDigits());
+        form.incorrectHolderVisible();
+    }
+
+    //поле "Владелец" специальными символами
+    @Test
+    public void shouldHolderSpecialSymbols() {
+        var purchasepage = new PurchasePage();
+        purchasepage.buyByCard();
+        var form = new PaymentPage();
+        form.completedForm(DataHelper.getHolderWithSpecialSymbols());
+        form.incorrectHolderVisible();
+    }
+
+    //не заполнение поля "Владелец"
+    @Test
+    public void shouldHolderIfEmpty() {
+        var purchasepage = new PurchasePage();
+        purchasepage.buyByCard();
+        var form = new PaymentPage();
+        form.completedForm(DataHelper.getHolderIfEmpty());
+        form.incorrectHolderVisible();
+    }
+
+    //код из 1 цифры
+    @Test
+    public void shouldCVCCVVOnOneDigit() {
+        var purchasepage = new PurchasePage();
+        purchasepage.buyByCard();
+        var form = new PaymentPage();
+        form.completedForm(DataHelper.getCVCCVVOnOneDigit());
+        form.incorrectCodeVisible();
+    }
+
+    //код из 2 цифр
+    @Test
+    public void shouldCVCCVVOnTwoDigit() {
+        var purchasepage = new PurchasePage();
+        purchasepage.buyByCard();
+        var form = new PaymentPage();
+        form.completedForm(DataHelper.getCVCCVVOnTwoDigits());
+        form.incorrectCodeVisible();
+    }
+
+    //код из 4 цифр
+    @Test
+    public void shouldCVCCVVOnFourDigit() {
+        var purchasepage = new PurchasePage();
+        purchasepage.buyByCard();
+        var form = new PaymentPage();
+        form.completedForm(DataHelper.getCVCCVVOnFourDigits());
+        form.incorrectCodeVisible();
+    }
+
+    //код из 5 цифр
+    @Test
+    public void shouldCVCCVVOnFiveDigit() {
+        var purchasepage = new PurchasePage();
+        purchasepage.buyByCard();
+        var form = new PaymentPage();
+        form.completedForm(DataHelper.getCVCCVVOnFiveDigits());
+        form.incorrectCodeVisible();
+    }
+
+    //Незаполнение формы
+    @Test
+    void shouldFormIfEmpty() {
+        var purchasepage = new PurchasePage();
+        purchasepage.buyByCard();
+        var form = new PaymentPage();
+        form.emptyForm();
+    }
+
+//Негативные сценарии для формы «Кредит по данным карты»
+
+    //Заполнение поля «Номер карты» номером, состоящим из 1 цифры
+    @Test
+    public void shouldCardNumberOfOneDigitByCredit() {
+        var purchasepage = new PurchasePage();
+        purchasepage.buyByCreditCard();
+        var form = new CreditPage();
+        form.completedForm(DataHelper.getCardNumberOfOneDigit());
+        form.incorrectCardNumberVisible();
+    }
+
+    //Заполнение поля «Номер карты» номером, состоящим из 2 цифр
+    @Test
+    public void shouldCardNumberOfTwoDigitsByCredit() {
+        var purchasepage = new PurchasePage();
+        purchasepage.buyByCreditCard();
+        var form = new CreditPage();
+        form.completedForm(DataHelper.getCardNumberOfTwoDigits());
+        form.incorrectCardNumberVisible();
+    }
+
+    //Заполнение поля «Номер карты» номером, состоящим из 15 цифр
+    @Test
+    public void shouldCardNumberOfFifteenDigitsByCredit() {
+        var purchasepage = new PurchasePage();
+        purchasepage.buyByCreditCard();
+        var form = new CreditPage();
+        form.completedForm(DataHelper.getCardNumberOfFifteenDigits());
+        form.incorrectCardNumberVisible();
+    }
+
+    //Заполнение поля «Номер карты» номером, состоящим из 17 цифр
+    @Test
+    public void shouldCardNumberOfSeventeenDigitsByCredit() {
+        var purchasepage = new PurchasePage();
+        purchasepage.buyByCreditCard();
+        var form = new CreditPage();
+        form.completedForm(DataHelper.getCardNumberOfSeventeenDigits());
+        form.paymentDeclined();
+    }
+
+    //Заполнение поля «Номер карты» специальными символами
+    @Test
+    public void shouldCardWithSpecialSymbolsByCredit() {
+        var purchasepage = new PurchasePage();
+        purchasepage.buyByCreditCard();
+        var form = new CreditPage();
+        form.completedForm(DataHelper.getCardNumberWithSpecialSymbols());
+        form.incorrectCardNumberVisible();
+    }
+
+    //Заполнение поля «Номер карты» значением на кириллице
+    @Test
+    public void shouldCardWithCyrillicByCredit() {
+        var purchasepage = new PurchasePage();
+        purchasepage.buyByCreditCard();
+        var form = new CreditPage();
+        form.completedForm(DataHelper.getCardNumberWithCyrillic());
+        form.incorrectCardNumberVisible();
+    }
+
+    //Заполнение поля «Номер карты» значением на латинице
+    @Test
+    public void shouldCardWithLatinByCredit() {
+        var purchasepage = new PurchasePage();
+        purchasepage.buyByCreditCard();
+        var form = new CreditPage();
+        form.completedForm(DataHelper.getCardNumberWithLatin());
+        form.incorrectCardNumberVisible();
+    }
+
+    //Не заполнение поля «Номер карты»
+    @Test
+    public void shouldCardIfEmptyByCredit() {
+        var purchasepage = new PurchasePage();
+        purchasepage.buyByCreditCard();
+        var form = new CreditPage();
+        form.completedForm(DataHelper.getCardNumberIfEmpty());
+        form.incorrectCardNumberVisible();
+    }
+
+    //Заполнение поля «Месяц» несуществующим месяцем, в пределах граничных значений
+    @Test
+    public void shouldMonthIfNotExistByCredit() {
+        var purchasepage = new PurchasePage();
+        purchasepage.buyByCreditCard();
+        var form = new CreditPage();
+        form.completedForm(DataHelper.getMonthIfNotExist());
+        form.incorrectMonthVisible("Неверно указан срок действия карты");
+    }
+
+    //Заполнение поля «Месяц» значением равным двум нулям
+    @Test
+    public void shouldMonthDoubleZeroByCredit() {
+        var purchasepage = new PurchasePage();
+        purchasepage.buyByCreditCard();
+        var form = new CreditPage();
+        form.completedForm(DataHelper.getMonthDoubleZero());
+        form.incorrectMonthVisible("Неверный формат");
+    }
+
+    //Заполнение поля «Месяц» значением из 3 цифр
+    @Test
+    public void shouldMonthOfThreeDigitsByCredit() {
+        var purchasepage = new PurchasePage();
+        purchasepage.buyByCreditCard();
+        var form = new CreditPage();
+        form.completedForm(DataHelper.getMonthOfThreeDigits());
+        form.incorrectMonthVisible("Неверный формат");
+    }
+
+    //Заполнение поля «Месяц» значением из 1 цифры
+    @Test
+    public void shouldMonthOfOneDigitByCredit() {
+        var purchasepage = new PurchasePage();
+        purchasepage.buyByCreditCard();
+        var form = new CreditPage();
+        form.completedForm(DataHelper.getMonthOfOneDigit());
+        form.incorrectMonthVisible("Неверный формат");
+    }
+
+    //Заполнение поля «Месяц» специальными символами
+    @Test
+    public void shouldMonthWithSpecialSymbolsByCredit() {
+        var purchasepage = new PurchasePage();
+        purchasepage.buyByCreditCard();
+        var form = new CreditPage();
+        form.completedForm(DataHelper.getMonthWithSpecialSymbols());
+        form.incorrectMonthVisible("Неверный формат");
+    }
+
+    //Заполнение поля «Год» значением прошедшего года
+    @Test
+    public void shouldLastYearByCredit() {
+        var purchasepage = new PurchasePage();
+        purchasepage.buyByCreditCard();
+        var form = new CreditPage();
+        form.completedForm(DataHelper.getLastYear());
+        form.incorrectYearVisible("Истёк срок действия карты");
+    }
+
+    //Заполнение поля «Год» значением, на 25 лет превышающего текущий год
+    @Test
+    public void shouldYear25YearsMoreByCredit() {
+        var purchasepage = new PurchasePage();
+        purchasepage.buyByCreditCard();
+        var form = new CreditPage();
+        form.completedForm(DataHelper.getYear25YearsMore());
+        form.incorrectYearVisible("Неверно указан срок действия карты");
+    }
+
+    //Заполнение поля «Год» значением из 1 цифры
+    @Test
+    public void shouldYearOfOneDigitByCredit() {
+        var purchasepage = new PurchasePage();
+        purchasepage.buyByCreditCard();
+        var form = new CreditPage();
+        form.completedForm(DataHelper.getYearOfOneDigit());
+        form.incorrectYearVisible("Неверный формат");
+    }
+
+    //Заполнение поля «Год» значением из 3 цифр
+    @Test
+    public void shouldYearOfThreeDigitsByCredit() {
+        var purchasepage = new PurchasePage();
+        purchasepage.buyByCreditCard();
+        var form = new CreditPage();
+        form.completedForm(DataHelper.getYearOfThreeDigits());
+        form.incorrectYearVisible("Неверный формат");
+    }
+
+    // Заполнение поля «Год» значением, равным нулю
+    @Test
+    public void shouldYearIfZeroByCredit() {
+        var purchasepage = new PurchasePage();
+        purchasepage.buyByCreditCard();
+        var form = new CreditPage();
+        form.completedForm(DataHelper.getYearIfZero());
+        form.incorrectYearVisible("Неверный формат");
+    }
+
+    //Заполнение поля «Год» специальными символами
+    @Test
+    public void shouldYearWithSpecialSymbolsByCredit() {
+        var purchasepage = new PurchasePage();
+        purchasepage.buyByCreditCard();
+        var form = new CreditPage();
+        form.completedForm(DataHelper.getYearWithSpecialSymbols());
+        form.incorrectYearVisible("Неверный формат");
+    }
+
+    //Заполнение поля «Владелец» значением из 1 буквы
+    @Test
+    public void shouldHolderOfOneLetterByCredit() {
+        var purchasepage = new PurchasePage();
+        purchasepage.buyByCreditCard();
+        var form = new CreditPage();
+        form.completedForm(DataHelper.getHolderOfOneLetter());
+        form.incorrectHolderVisible();
+    }
+
+    //Заполнение поля «Владелец» значением из 60 букв
+    @Test
+    public void shouldHolderOfSixtyLettersByCredit() {
+        var purchasepage = new PurchasePage();
+        purchasepage.buyByCreditCard();
+        var form = new CreditPage();
+        form.completedForm(DataHelper.getHolderOfSixtyLetters());
+        form.incorrectHolderVisible();
+    }
+
+    //Заполнение поля «Владелец» значением на кириллице
+    @Test
+    public void shouldHolderWithCyrillicByCredit() {
+        var purchasepage = new PurchasePage();
+        purchasepage.buyByCreditCard();
+        var form = new CreditPage();
+        form.completedForm(DataHelper.getHolderWithCyrillic());
+        form.incorrectHolderVisible();
+    }
+
+    //Заполнение поля «Владелец» цифрами
+    @Test
+    public void shouldHolderWithDigitsByCredit() {
+        var purchasepage = new PurchasePage();
+        purchasepage.buyByCreditCard();
+        var form = new CreditPage();
+        form.completedForm(DataHelper.getHolderWithDigits());
+        form.incorrectHolderVisible();
+    }
+
+    //Заполнение поля «Владелец» специальными символами
+    @Test
+    public void shouldHolderSpecialSymbolsByCredit() {
+        var purchasepage = new PurchasePage();
+        purchasepage.buyByCreditCard();
+        var form = new CreditPage();
+        form.completedForm(DataHelper.getHolderWithSpecialSymbols());
+        form.incorrectHolderVisible();
+    }
+
+    //Не заполнение поля «Владелец»
+    @Test
+    public void shouldHolderIfEmptyByCredit() {
+        var purchasepage = new PurchasePage();
+        purchasepage.buyByCreditCard();
+        var form = new CreditPage();
+        form.completedForm(DataHelper.getHolderIfEmpty());
+        form.incorrectHolderVisible();
+    }
+
+    //Заполнение поля «CVC/CVV» значением из 1 цифры
+    @Test
+    public void shouldCVCCVVOnOneDigitByCredit() {
+        var purchasepage = new PurchasePage();
+        purchasepage.buyByCreditCard();
+        var form = new CreditPage();
+        form.completedForm(DataHelper.getCVCCVVOnOneDigit());
+        form.incorrectCodeVisible();
+    }
+
+    //Заполнение поля «CVC/CVV» значением из 2 цифр
+    @Test
+    public void shouldCVCCVVOnTwoDigitByCredit() {
+        var purchasepage = new PurchasePage();
+        purchasepage.buyByCreditCard();
+        var form = new CreditPage();
+        form.completedForm(DataHelper.getCVCCVVOnTwoDigits());
+        form.incorrectCodeVisible();
+    }
+
+    //Заполнение поля «CVC/CVV» значением из 4 цифр
+    @Test
+    public void shouldCVCCVVOnFourDigitByCredit() {
+        var purchasepage = new PurchasePage();
+        purchasepage.buyByCreditCard();
+        var form = new CreditPage();
+        form.completedForm(DataHelper.getCVCCVVOnFourDigits());
+        form.incorrectCodeVisible();
+    }
+
+    //Заполнение поля «CVC/CVV» значением из 5 цифр
+    @Test
+    public void shouldCVCCVVOnFiveDigitByCredit() {
+        var purchasepage = new PurchasePage();
+        purchasepage.buyByCreditCard();
+        var form = new CreditPage();
+        form.completedForm(DataHelper.getCVCCVVOnFiveDigits());
+        form.incorrectCodeVisible();
+    }
+
+    // Не заполнение формы «Оплата по карте»
+    @Test
+    void shouldFormIfEmptyByCredit() {
+        var purchasepage = new PurchasePage();
+        purchasepage.buyByCreditCard();
+        var form = new CreditPage();
+        form.emptyForm();
+    }
 }
+
+
+
+
+
+
+
+
+
+

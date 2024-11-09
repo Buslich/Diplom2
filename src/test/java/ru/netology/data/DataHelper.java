@@ -51,11 +51,6 @@ public class DataHelper {
         return new CardInfo("21", getValidMonth(), getValidYear(), getValidHolder(), getValidCVCCVV());
     }
 
-    //Заполнение поля номером, состоящим из 5 цифр
-    public static CardInfo getCardNumberOfFiveDigits() {
-        return new CardInfo("21111", getValidMonth(), getValidYear(), getValidHolder(), getValidCVCCVV());
-    }
-
     //Заполнение поля номером, состоящим из 15 цифр
     public static CardInfo getCardNumberOfFifteenDigits() {
         return new CardInfo("444444444444444", getValidMonth(), getValidYear(), getValidHolder(), getValidCVCCVV());
@@ -64,16 +59,6 @@ public class DataHelper {
     //Заполнение поля номером, состоящим из 17 цифр
     public static CardInfo getCardNumberOfSeventeenDigits() {
         return new CardInfo("44444444444444414", getValidMonth(), getValidYear(), getValidHolder(), getValidCVCCVV());
-    }
-
-    //Заполнение поля номером, состоящим из 18 цифр
-    public static CardInfo getCardNumberOfEighteenDigits() {
-        return new CardInfo("444444444444444144", getValidMonth(), getValidYear(), getValidHolder(), getValidCVCCVV());
-    }
-
-    //Заполнение поля номером, не зарегистрированным в базе данных
-    public static CardInfo getCardNumberNotRegistered() {
-        return new CardInfo("1234567891011121", getValidMonth(), getValidYear(), getValidHolder(), getValidCVCCVV());
     }
 
     //Заполнение поля с использованием специальных символов
@@ -91,16 +76,6 @@ public class DataHelper {
         return new CardInfo("number", getValidMonth(), getValidYear(), getValidHolder(), getValidCVCCVV());
     }
 
-    //Заполнение поля арабской вязью
-    public static CardInfo getCardNumberWithArabicLigature() {
-        return new CardInfo("رقم", getValidMonth(), getValidYear(), getValidHolder(), getValidCVCCVV());
-    }
-
-    //Заполнение поля иероглифами
-    public static CardInfo getCardNumberWithHieroglyphs() {
-        return new CardInfo("号码", getValidMonth(), getValidYear(), getValidHolder(), getValidCVCCVV());
-    }
-
     //Не заполнение поля
     public static CardInfo getCardNumberIfEmpty() {
         return new CardInfo("", getValidMonth(), getValidYear(), getValidHolder(), getValidCVCCVV());
@@ -108,7 +83,6 @@ public class DataHelper {
 
     //Поле "Месяц":
 
-    //Заполнение поля несуществующим месяцем
     public static CardInfo getMonthIfNotExist() {
         return new CardInfo(getApprovedCardNumber(), "25", getValidYear(), getValidHolder(), getValidCVCCVV());
     }
@@ -138,51 +112,26 @@ public class DataHelper {
         return new CardInfo(getApprovedCardNumber(), "@#", getValidYear(), getValidHolder(), getValidCVCCVV());
     }
 
-    //Заполнение поля кириллицей
-    public static CardInfo getMonthWithCyrillic() {
-        return new CardInfo(getApprovedCardNumber(), "месяц", getValidYear(), getValidHolder(), getValidCVCCVV());
-    }
-
-    //Заполнение поля латиницей
-    public static CardInfo getMonthWithLatin() {
-        return new CardInfo(getApprovedCardNumber(), "month", getValidYear(), getValidHolder(), getValidCVCCVV());
-    }
-
-    //Заполнение поля арабской вязью
-    public static CardInfo getMonthWithArabicLigature() {
-        return new CardInfo(getApprovedCardNumber(), "شهر", getValidYear(), getValidHolder(), getValidCVCCVV());
-    }
-
-    //Заполнение поля иероглифами
-    public static CardInfo getMonthWithHieroglyphs() {
-        return new CardInfo(getApprovedCardNumber(), "月", getValidYear(), getValidHolder(), getValidCVCCVV());
-    }
-
-    //Не заполнение поля
-    public static CardInfo getMonthIfEmpty() {
-        return new CardInfo(getApprovedCardNumber(), "", getValidYear(), getValidHolder(), getValidCVCCVV());
-    }
-
     //Поле "Год":
 
     //Заполнение поля значением прошедшего года
     public static CardInfo getLastYear() {
-        return new CardInfo(getApprovedCardNumber(), getValidMonth(), "22", getValidHolder(), getValidCVCCVV());
+        return new CardInfo(getApprovedCardNumber(), getValidMonth(), "21", getValidHolder(), getValidCVCCVV());
     }
 
     //Заполнение поля значением, на 25 лет превышающего текущий год
     public static CardInfo getYear25YearsMore() {
-        return new CardInfo(getApprovedCardNumber(), getValidMonth(), "49", getValidHolder(), getValidCVCCVV());
+        return new CardInfo(getApprovedCardNumber(), getValidMonth(), "50", getValidHolder(), getValidCVCCVV());
     }
 
     //Заполнение поля значением из 1 цифры
     public static CardInfo getYearOfOneDigit() {
-        return new CardInfo(getApprovedCardNumber(), getValidMonth(), "2", getValidHolder(), getValidCVCCVV());
+        return new CardInfo(getApprovedCardNumber(), getValidMonth(), "3", getValidHolder(), getValidCVCCVV());
     }
 
     //Заполнение поля значением из 3 цифр
     public static CardInfo getYearOfThreeDigits() {
-        return new CardInfo(getApprovedCardNumber(), getValidMonth(), "202", getValidHolder(), getValidCVCCVV());
+        return new CardInfo(getApprovedCardNumber(), getValidMonth(), "203", getValidHolder(), getValidCVCCVV());
     }
 
     //Заполнение поля значением, равным нулю
@@ -195,51 +144,26 @@ public class DataHelper {
         return new CardInfo(getApprovedCardNumber(), getValidMonth(), "@#", getValidHolder(), getValidCVCCVV());
     }
 
-    //Заполнение поля кириллицей
-    public static CardInfo getYearWithCyrillic() {
-        return new CardInfo(getApprovedCardNumber(), getValidMonth(), "год", getValidHolder(), getValidCVCCVV());
-    }
-
-    //Заполнение поля латиницей
-    public static CardInfo getYearWithLatin() {
-        return new CardInfo(getApprovedCardNumber(), getValidMonth(), "year", getValidHolder(), getValidCVCCVV());
-    }
-
-    //Заполнение поля арабской вязью
-    public static CardInfo getYearWithArabicLigature() {
-        return new CardInfo(getApprovedCardNumber(), getValidMonth(), "سنة", getValidHolder(), getValidCVCCVV());
-    }
-
-    //Заполнение поля иероглифами
-    public static CardInfo getYearWithHieroglyphs() {
-        return new CardInfo(getApprovedCardNumber(), getValidMonth(), "年", getValidHolder(), getValidCVCCVV());
-    }
-
-    //Не заполнение поля
-    public static CardInfo getYearIfEmpty() {
-        return new CardInfo(getApprovedCardNumber(), getValidMonth(), "", getValidHolder(), getValidCVCCVV());
-    }
-
     //Поле "Владелец":
 
     //Заполнение поля значением из 1 буквы
     public static CardInfo getHolderOfOneLetter() {
-        return new CardInfo(getApprovedCardNumber(), getValidMonth(), getValidYear(), "N", getValidCVCCVV());
+        return new CardInfo(getApprovedCardNumber(), getValidMonth(), getValidYear(), "A", getValidCVCCVV());
     }
 
     //Заполнение поля значением из 60 букв
     public static CardInfo getHolderOfSixtyLetters() {
-        return new CardInfo(getApprovedCardNumber(), getValidMonth(), getValidYear(), "Mariiiiiiiiiiiiiiiiiiiiiiiiiiirrrrrrrrrrrrrrrrrrrriiiiiaaaaa Bond", getValidCVCCVV());
+        return new CardInfo(getApprovedCardNumber(), getValidMonth(), getValidYear(), "AlexAlexAlexAlexAlexAlexAlexAlexAlexAlexAlexAlexAlexAlexAlexAlexAlexAlex", getValidCVCCVV());
     }
 
     //Заполнение поля кирилицей
     public static CardInfo getHolderWithCyrillic() {
-        return new CardInfo(getApprovedCardNumber(), getValidMonth(), getValidYear(), "Мария Бонд", getValidCVCCVV());
+        return new CardInfo(getApprovedCardNumber(), getValidMonth(), getValidYear(), "Игорь Сидоров", getValidCVCCVV());
     }
 
     //Заполнение поля цифрами
     public static CardInfo getHolderWithDigits() {
-        return new CardInfo(getApprovedCardNumber(), getValidMonth(), getValidYear(), "123", getValidCVCCVV());
+        return new CardInfo(getApprovedCardNumber(), getValidMonth(), getValidYear(), "456", getValidCVCCVV());
     }
 
     //Заполнение поля с использованием специальных символов
@@ -247,7 +171,7 @@ public class DataHelper {
         return new CardInfo(getApprovedCardNumber(), getValidMonth(), getValidYear(), "@#", getValidCVCCVV());
     }
 
-    //Не заполнение поля
+    //Не заполнение поля "Владелец"
     public static CardInfo getHolderIfEmpty() {
         return new CardInfo(getApprovedCardNumber(), getValidMonth(), getValidYear(), "", getValidCVCCVV());
     }
@@ -272,31 +196,6 @@ public class DataHelper {
     //Заполнение поля значением из 5 цифр
     public static CardInfo getCVCCVVOnFiveDigits() {
         return new CardInfo(getApprovedCardNumber(), getValidMonth(), getValidYear(), getValidHolder(), "12345");
-    }
-
-    //Заполнение поля с использованием специальных символов
-    public static CardInfo getCVCCVVWithSpecialSymbols() {
-        return new CardInfo(getApprovedCardNumber(), getValidMonth(), getValidYear(), getValidHolder(), "@#&");
-    }
-
-    //Заполнение поля кириллицей
-    public static CardInfo getCVCCVVWithCyrillic() {
-        return new CardInfo(getApprovedCardNumber(), getValidMonth(), getValidYear(), getValidHolder(), "номер");
-    }
-
-    //Заполнение поля латиницей
-    public static CardInfo getCVCCVVWithLatin() {
-        return new CardInfo(getApprovedCardNumber(), getValidMonth(), getValidYear(), getValidHolder(), "number");
-    }
-
-    //Заполнение поля арабской вязью
-    public static CardInfo getCVCCVVWithArabicLigature() {
-        return new CardInfo(getApprovedCardNumber(), getValidMonth(), getValidYear(), getValidHolder(), "رقم");
-    }
-
-    //Заполнение поля иероглифами
-    public static CardInfo getCVCCVVWithHieroglyphs() {
-        return new CardInfo(getApprovedCardNumber(), getValidMonth(), getValidYear(), getValidHolder(), "号码");
     }
 
     //Не заполнение поля
